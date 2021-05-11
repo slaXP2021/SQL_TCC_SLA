@@ -1,0 +1,107 @@
+	---Nome do Banco 
+	  	--- TCC_SLA
+	---Tabelas 
+      --- Dados_Prof
+      --- Dados_Aluno
+      --- Projeto
+      --- Grupo
+
+create DATABASE TCC_SLA
+
+use TCC_SLA
+
+
+---------Professor---------
+--PK RM_prof 
+--FK (/) 
+--UN email_prof
+
+  Create TABLE Dados_Prof(
+     RM_prof int not null,
+     Nome_prof varchar(50) not null,
+     Materia varchar(30) not null,
+     Email_Prof varchar(50) not null,
+     Senha_Prof varchar(20) not null,
+
+     Constraint PK_RM_prof Primary Key ( RM_prof),
+     Constraint UN_email_prof Unique (Email_Prof)
+)
+
+
+-----------Aluno-------------
+--PK RM_Aluno
+--FK Id_Grupo
+--UN email_aluno
+
+Create TABLE Dados_Aluno (
+   RM_Aluno int not null,
+   Nome_Aluno varchar(50) not null,
+   Email_Aluno varchar(50) not null,
+   Turma varchar(7) not null,
+   Numero_Aluno int not null,
+   Id_Grupo int  not null,                       
+   Senha_Aluno varchar(20) not null,
+   
+   Constraint PK_RM_Aluno Primary Key ( RM_Aluno), 
+   Constraint UN_email_aluno unique (Email_Aluno),
+  )
+Alter Table Dados_Aluno
+   Add Constraint FK_Id_Grupo_Aluno 
+   Foreign Key (Id_Grupo) 
+   References Grupo(Id_Grupo)
+-- Alterei a tabela pois como a chave estrangeira do grupo
+--nessa tabela  com "constraint" estava dando alguns erros
+  
+
+--------Projeto----------
+--PK Id_Projeto
+--FK Id_Grupo  
+--FK RM_Prof 
+
+Create TABLE Projeto (
+    Id_Projeto int Identity not null,
+	Nome  varchar (50) not null,
+	Tema   varchar(50) not null,
+	descricao nvarchar(max) not null,
+	Local_Proj varchar(40) not null,
+	eixo varchar (20) not null,
+	tipo  varchar(15) not null,
+	Id_Grupo int not null, 
+	RM_Prof int not null,
+	Status_Proj int not null check (Status_Proj = '1' or 
+	                                Status_Proj = '2' or
+									Status_Proj = '3') ,
+-- 1 para aprovado,
+-- 2 para reprovado,
+-- 3 para pendente.
+
+     Constraint PK_Id_Projeto Primary key (Id_Projeto),
+     Constraint FK_RM_Prof Foreign key (RM_Prof) 
+	           REFERENCES  Dados_Prof (RM_Prof)
+  )
+Alter Table Projeto
+   Add Constraint FK_Id_Grupo_Projeto 
+   Foreign Key (Id_Grupo) 
+   References Grupo(Id_Grupo)
+
+-- Alterei a tabela pois como a chave estrangeira do grupo
+--nessa tabela  com "constraint" estava dando alguns erros
+ Alter Table Projeto
+   Add Constraint FK_Rm_Prof_Projeto 
+   Foreign Key (RM_Prof) 
+   References Dados_Prof(RM_prof) 
+
+----------Grupo----------
+--PK Id_Grupo
+--FK(/)
+--UN Nome_Grupo 
+
+
+Create table Grupo (
+   Id_Grupo int not null, 
+   Nome_Grupo varchar(10) not null,
+   Constraint PK_ID_Grupo Primary key (Id_Grupo),
+   Constraint UN_Nome_Grupo unique (Nome_Grupo),
+
+)
+
