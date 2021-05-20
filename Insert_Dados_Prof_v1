@@ -1,0 +1,32 @@
+USE TCC_SLA
+
+select*from Dados_Prof
+
+Insert into 
+	Dados_Prof
+Values(
+	1,
+	'Gilberto Vieira Silva',
+	'Historia',
+	'Gil.prof@docente.edu.br',
+	'HistAmor'
+)
+
+Insert into 
+	Dados_Prof
+Values(
+	2,
+	'Mauricio Aparecido Guerra',
+	'Geografia',
+	'Mauricio.prof@docente.edu.br',
+	'GeoGeo'
+)
+Insert into 
+	Dados_Prof
+Values(
+	3,
+	'Jorge Cruz Teixeira',
+	'Banco de dados',
+	'JorgeC.prof@docente.edu.br',
+	'BDebom'
+)
